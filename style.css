@@ -20,6 +20,10 @@ html{
     justify-content: space-between;
 }
 
+.logo img{
+    width: 80px;
+}
+
 header{
     width: 100%;
     padding: 60px 4%;
@@ -46,6 +50,10 @@ header.rolagem a, header.rolagem i{
 header.rolagem button{
     background-color: #334753;
     color: #fff;
+}
+
+header.rolagem .logo img{
+    color:#334753;
 }
 
 header i{
@@ -79,7 +87,7 @@ header ul li a{
 
 .banner{
     height: 100vh;
-    background-image: url(../Personal-Project/Projeto_Web/Imagens/plano-de-fundo-texturizado-de-marmore-azul-e-dourado.jpg);
+    background-image: url(../Personal-Project/Projeto_Web/Imagens/Background/watercolor-splash-background.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
