@@ -1,0 +1,39 @@
+body{
+    height: 2000px;
+    padding-top: 90px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    background-color: #3a554e;
+}
+
+#menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color:#333;
+}
+
+div{
+    color: #fff;
+    display: block;
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+a{
+    color: #fff;
+    float: right;
+    text-decoration: none;
+    display: block;
+    padding: 14px 16px;
+}
