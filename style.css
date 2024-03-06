@@ -1,39 +1,145 @@
-body{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    height: 500vh;
+}
+
+.container{
+    max-width: 1280px;
+    margin: auto;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header{
+    width: 100%;
+    padding: 60px 4%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: .5s;
+
+}
+
+header.rolagem{
+    background-color: #fff;
+    padding: 20px 4%;
+}
+
+header.rolagem a{
+    color:#334753;
+}
+
+header.rolagem a, header.rolagem i{
+    color:#334753;
+}
+
+header.rolagem button{
+    background-color: #334753;
+    color: #fff;
+}
+
+header i{
+    font-size: 30px;
+    color: #fff;
+}
+
+header ul{
+    list-style-type: none;
+}
+
+header ul li{
+    display: inline-block;
+    margin: 0 40px;
+}
+
+header ul li a{
+    color:#fff;
+    text-decoration: none;
+}
+
+.btn_contato button{
+    width: 120px;
+    height: 40px;
+    border: 0;
+    transition: .2s;
+    background-color: #a38728;
+    color: #fff;
+    cursor: pointer;
+}
+
+.banner{
+    height: 100vh;
+    background-image: url(../Personal-Project/Projeto_Web/Imagens/plano-de-fundo-texturizado-de-marmore-azul-e-dourado.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner h1{
+    font-size: 3em;
+    color: #fff;
+}
+
+.banner h1 span{
+    color: #c09e38;
+}
+
+
+
+/*body{
+    background-color: #3a554e;
+    margin: 0;
     height: 2000px;
     padding-top: 90px;
     padding-left: 30px;
     box-sizing: border-box;
-    background-color: #3a554e;
+    
 }
 
-#menu{
+nav{
+    background-color:#333;
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 90px;
-    background-color:#333;
 }
 
-div{
+nav .Logo{
     color: #fff;
+    float: left;
     display: block;
+    padding: 14px 16px;
 }
 
-ul{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    margin: 0;
-    padding: 10px;
-}
-
-a{
+nav a{
     color: #fff;
+    list-style: none;
+    align-items: center;
+    margin-right: 10px;
     float: right;
     text-decoration: none;
     display: block;
     padding: 14px 16px;
 }
+
+nav a:hover{
+    transition: 0.5s;
+    background-color: #e4e4e4;
+    color:#333;
+}*/
