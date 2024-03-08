@@ -21,7 +21,7 @@ html{
 }
 
 .logo img{
-    width: 80px;
+    width: 60px;
 }
 
 header{
@@ -53,7 +53,7 @@ header.rolagem button{
 }
 
 header.rolagem .logo img{
-    color:#334753;
+    color: #334753;
 }
 
 header i{
@@ -80,7 +80,8 @@ header ul li a{
     height: 40px;
     border: 0;
     transition: .2s;
-    background-color: #a38728;
+    background-color: #c09e38;
+    ;
     color: #fff;
     cursor: pointer;
 }
