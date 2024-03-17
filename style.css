@@ -8,6 +8,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+:root{
+    --color-neutral-1: #fff;
+    --color-neutral-11: #c09e38;
+    --color-neutral-22: #405862;
+    --color-neutral-33: #aaaa;
+    --color-neutral-44: #faffd8;
+    --color-neutral-55: #32936F;
+    --color-neutral-55: #233d4d;
+
+}
+
 body{
     display: block;
     justify-content: center;
@@ -15,14 +26,14 @@ body{
     height: 100vh;
     gap: 16px;
 
-
 }
+
 html{
     height: 100vh;
 }
 
 .container{
-    max-width: 1280px;
+    max-width: 1920px;
     margin: auto;
 }
 
@@ -32,83 +43,9 @@ html{
     justify-content: space-between;
 }
 
-.logo img{
-    width: 60px;
-}
-
-.logo-footer img{
-    width: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-header{
-    width: 100%;
-    padding: 30px 4%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: .5s;
-
-}
-
-header.rolagem{
-    background-color: #fff;
-    padding: 20px 4%;
-}
-
-header.rolagem a{
-    color:#334753;
-}
-
-header.rolagem a, header.rolagem i{
-    color:#334753;
-}
-
-header.rolagem button{
-    background-color: #334753;
-    color: #fff;
-}
-
-header.rolagem .logo img{
-    color: #334753;
-}
-
-header i{
-    font-size: 30px;
-    color: #fff;
-}
-
-header ul{
-    list-style-type: none;
-}
-
-header ul li{
-    display: inline-block;
-    margin: 0 40px;
-}
-
-header ul li a{
-    color:#fff;
-    text-decoration: none;
-}
-
-.btn_contato button{
-    width: 120px;
-    height: 40px;
-    border: 0;
-    transition: .2s;
-    background-color: #c09e38;
-    ;
-    color: #fff;
-    cursor: pointer;
-}
-
 .banner{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-image: url(../Personal-Project/Projeto_Web/Imagens/Background/watercolor-splash-background.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -121,167 +58,57 @@ header ul li a{
 
 .banner h1{
     font-size: 3em;
-    color: #fff;
+    display: inline-block;
+    text-align: center;
+    color: var(--color-neutral-1);
 }
 
 .banner h1 span{
-    color: #c09e38;
-}
-
-:root{
-    --color-neutral-0: #0c0c0c;
-    --color-neutral-10: #171717;
-    --color-neutral-30: #a8a29e;
-    --color-neutral-40: #f5f5f5;
-
+    color: var(--color-neutral-11);
 }
 
 .card{
     right: auto;
-    background-color: #334753;
+    background-color: var(--color-neutral-22);
     width: 1055px;
     height: 500px;
     border-radius: 12px;
-    box-shadow: 12px 12px 12px #aaaa;
+    box-shadow: 12px 12px 12px var(--color-neutral-33);
     margin: auto;
 }
 
+/* Estilos para telas menores ou iguais a 768px */
+@media screen and (max-width: 768px) {
+    /* Estilos específicos para telas menores */
+    .banner h1 {
+        display: inline-block;
+        text-align: center;
+        font-size: 2.5em;
+    }
 
-main{
-    height: 0%;
+    .card {
+        width: 90%; /* Reduz a largura do card para caber melhor em telas menores */
+        height: auto; /* Altera a altura para se ajustar ao conteúdo */
+        box-shadow: none; /* Remove a sombra do card em telas menores */
+    }
+
+    /* Ajustes adicionais conforme necessário */
 }
 
-
-footer{
-    width: 100%;
-    color: var(--color-neutral-40);
-}
-
-.footer-link{
-    text-decoration: none;
-}
-
-#footer-content{
-    background-color: var(--color-neutral-10);
-    display: flex;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 3rem 3.5rem;
-}
-
-#footer-contacts h1{
-    margin-bottom: 0.75rem;
-}
-
-#footer-social-media{
-    display: flex;
-    gap: 2rem;
-    margin-top: 1.5rem;
-}
-
-#footer-social-media .footer-link{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.5rem;
-    width: 2.5rem;
-    color: var(--color-neutral-40);
-    border-radius: 50%;
-    transition: all 0.4s;
-}
-
-#footer-social-media .footer-link{
-    font-size: 1.25rem;
-}
-
-#footer-social-media .footer-link:hover{
-    opacity: 0.8;
-}
-
-#instagram{
-    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
-}
-
-#whatsapp{
-    background-color: #25d366;
-}
-
-.footer-list{
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    list-style: none;
-}
-
-.footer-list .footer-link{
-    color: var(--color-neutral-30);
-    transition: all 0.4s;
-}
-
-.footer-list .footer-link:hover{
-    color: #7f37c9;
-}
-
-#footer-subscribe{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-left: auto;
-}
-
-#footer-subscribe a{
-    color: var(--color-neutral-30);
-}
-
-#input-group{    
-    display: flex;
-    align-items: center;
-    background-color: var(--color-neutral-0);
-    border-radius: 4px;
-}
-
-#input-group input{
-    all: unset;
-    padding: 0.75rem;
-    width: 100%;
-}
-
-#input-group button{
-    background-color: #334753;
-    border: none;
-    color: var(--color-neutral-40);
-    padding: 0px 1.25rem;
-    font-size: 1.125rem;
-    height: 100%;
-    border-radius: 0px 4px 4px 0px;
-    cursor: pointer;
-    transition: all 0.4s;
-}
-
-#input-group button:hover{
-    opacity: 0.8;
-}
-
-#footer-copyright{
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    background-color: var(--color-neutral-0);
-    font-size: 0.9rem;
-    padding: 1.5rem;
-    font-weight: 100;
-}
-
-@media screen and (max-widht: 768px){
-    #footer-content{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+@media screen and (max-width: 500px) {
+    /* Estilos específicos para telas menores */
+    .banner h1 {
+        display: inline-block;
+        text-align: center;
+        font-size: 2em;
     }
 }
 
-@media screen and (max-widht: 426px){
-    #footer-content{
-        grid-template-columns: repeat(1, 1fr);
-        padding: 3rem 2rem;
+@media screen and (max-width: 390px) {
+    /* Estilos específicos para telas maiores */
+    .banner h1 {
+        display: inline-block;
+        text-align: center;
+        font-size: 1.5em;
     }
 }
-

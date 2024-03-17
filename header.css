@@ -1,0 +1,146 @@
+
+:root{
+    --color-neutral-1: #fff;
+    --color-neutral-11: #c09e38;
+    --color-neutral-22: #405862;
+    --color-neutral-33: #aaaa;
+    --color-neutral-44: #faffd8;
+    --color-neutral-55: #32936F;
+    --color-neutral-55: #233d4d;
+
+}
+
+
+.logo img{
+    width: 60px;
+    
+}
+
+header{
+    z-index: +1;
+    width: 100%;
+    padding: 30px 4%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: .5s;
+
+}
+
+header.rolagem{
+    background-color: #fff;
+    padding: 20px 4%;
+}
+
+header.rolagem a{
+    color:#334753;
+}
+
+header.rolagem a, header.rolagem i{
+    color:#334753;
+}
+
+header.rolagem button{
+    background-color: #334753;
+    color: #fff;
+}
+
+header.rolagem .logo img{
+    color: #334753;
+}
+
+header i{
+    font-size: 30px;
+    color: #fff;
+}
+
+header ul{
+    list-style-type: none;
+}
+
+header ul li{
+    display: inline-block;
+    margin: 0 90px;
+}
+
+header ul li a{
+    color:#fff;
+    text-decoration: none;
+}
+
+.btn_contato button{
+    width: 120px;
+    height: 40px;
+    border: 0;
+    transition: .2s;
+    background-color: #c09e38;
+    ;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1366px) {
+    /* Adicione margem inferior para os itens do menu */
+    header ul li {
+        display: inline-block;
+        margin: 0 60px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    header ul li {
+        display: inline-block;
+        margin: 0 40px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    header ul li {
+        display: inline-block;
+        margin: 0 30px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    header ul li {
+        display: inline-block;
+        margin: 0 20px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* Modifique o tamanho do logotipo */
+    .logo img {
+        width: 60px;
+    }
+
+    /* Ajuste o espaçamento do cabeçalho */
+    header {
+        padding: 20px 4%;
+    }
+
+    /* Modifique o tamanho do ícone do menu */
+    header i {
+        font-size: 24px;
+    }
+
+    /* Alinhe os itens do menu verticalmente */
+    header ul {
+        display: inline-block;
+        text-align: center;
+        margin-top: 5px; /* Adicione margem no topo para melhor espaçamento */
+    }
+
+    /* Adicione margem inferior para os itens do menu */
+    header ul li {
+        display: block;
+        margin: 5px 0;
+    }
+
+    /* Ajuste o tamanho do botão de contato */
+    .btn_contato button {
+        width: 110px;
+        height: 40px;
+    }
+}
