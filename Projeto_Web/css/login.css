@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --color-neutral-1: #fff;
+    --color-neutral-11: #c09e38;
+    --color-neutral-22: #405862;
+    --color-neutral-33: #aaaa;
+    --color-neutral-44: #faffd8;
+    --color-neutral-55-green: #245552;
+    --color-neutral-55-darkteal: #233d4d;
+    --color-text-dark: #333;
+    --color-background-light: #0a3335;
+    --login-background-image: url('../Imagens/Background/watercolor-splash-background.jpg');
+}
+
+.login-page-body {
+    background-color: var(--color-background-light);
+    background-image: var(--login-background-image);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 60px;
+}
+
+#header.login-header .login-header-flex-container {
+    justify-content: flex-start;
+}
+
+#header.login-header .logo {
+    margin-right: 20px;
+}
+
+#header.login-header nav ul li a {
+    font-size: 1em;
+    padding: 10px 15px;
+    color: var(--color-neutral-1);
+}
+
+header.login-header.rolagem nav ul li a {
+    color: var(--color-neutral-1);
+}
+header.login-header.rolagem {
+    background-color: var(--color-neutral-55-darkteal);
+}
+
+.login-main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px; 
+    text-align: center;
+}
+
+.login-container h2 {
+    color: var(--color-neutral-55-darkteal);
+    margin-bottom: 1.5rem;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    text-align: left; 
+}
+
+.form-group label {
+    display: block;
+    color: var(--color-neutral-22);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: var(--color-neutral-55-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(50, 147, 111, 0.15);
+}
+
+.btn-login-submit {
+    background-color: var(--color-neutral-55-green);
+    color: var(--color-neutral-1); 
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    width: 100%; 
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-login-submit:hover {
+    background-color: #1e4d49;
+}
+
+.form-links {
+    margin-top: 1.5rem;
+    font-size: 0.9em;
+}
+
+.form-links a {
+    color: var(--color-neutral-55-green);
+    text-decoration: none;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+
+.form-links p {
+    margin-top: 0.75rem;
+    color: var(--color-neutral-22);
+}
+
+#login-footer {
+    background-color: var(--color-background-light);
+    color: var(--color-neutral-1);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .login-page-body {
+        padding-top: 50px;
+    }
+
+    #header.login-header .login-header-flex-container {
+        flex-direction: row;
+        align-items: center;
+    }
+     #header.login-header .logo img{
+        max-width: 120px;
+     }
+
+    #header.login-header nav ul li a {
+        padding: 8px 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .login-container h2 {
+        font-size: 1.6em;
+    }
+
+    .btn-login-submit {
+        font-size: 1em;
+        padding: 0.7rem 1.2rem;
+    }
+}

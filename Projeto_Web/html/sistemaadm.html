@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema ADM - Oásis Fashion</title>
+
+    <link rel="icon" type="image/x-icon" href="../Imagens/Oásis Favicon/oasis.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/sistemaadm.css">
+</head>
+
+<body class="sistema-adm-page-body">
+
+    <header class="login-header">
+
+        <div class="container header-flex">
+            <div class="left-header">
+
+                <a href="index.html"> <img src="../Imagens/Oásis Fashion-Logo/oasis-svg.svg" alt="Logo Oásis Fashion" class="logo"><a>
+
+                <a href="index.html" class="home-btn">HOME</a>
+
+            </div>
+            
+                <a href="login.html" class="voltar-btn">VOLTAR</a>
+        </div>
+    </header>
+
+    
+    <main class="sistema-adm-main-content">
+        <div class="admin-panel-box">
+
+            <h1>Painel de Administração de Usuários</h1>
+            
+            <div class="actions-bar">
+                <button class="btn btn-primary btn-add-user">
+                    <i class="fas fa-plus-circle"></i> Cadastrar Novo Usuário
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Usuário</th>
+                            <th>E-mail</th>
+                            <th>Data de Nascimento</th>
+                            <th>Sexo</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ana Silva</td>
+                            <td>ana.silva@example.com</td>
+                            <td>1990-05-15</td>
+                            <td>Feminino</td>
+                            <td><button class="btn btn-icon btn-edit"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn btn-icon btn-delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Pereira</td>
+                            <td>carlos.p@example.com</td>
+                            <td>1985-11-23</td>
+                            <td>Masculino</td>
+                            <td><button class="btn btn-icon btn-edit"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn btn-icon btn-delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Mariana Costa</td>
+                            <td>mari.costa@example.com</td>
+                            <td>2000-02-10</td>
+                            <td>Feminino</td>
+                            <td><button class="btn btn-icon btn-edit"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn btn-icon btn-delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>João Santos</td>
+                            <td>jsantos@example.com</td>
+                            <td>1993-07-30</td>
+                            <td>Masculino</td>
+                            <td><button class="btn btn-icon btn-edit"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn btn-icon btn-delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Beatriz Almeida</td>
+                            <td>bia.almeida@example.com</td>
+                            <td>1998-09-05</td>
+                            <td>Feminino</td>
+                            <td><button class="btn btn-icon btn-edit"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn btn-icon btn-delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer id="sistemaadm-footer">
+        <div id="footer-copyright">
+            © <span id="currentYear"></span> todos os direitos reservados
+        </div>
+    </footer>
+
+    <script src="../js/menu.js"></script>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

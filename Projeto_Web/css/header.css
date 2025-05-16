@@ -8,8 +8,8 @@
     --color-neutral-33: #aaaa;
     --color-neutral-44: #faffd8;
     --color-neutral-55: #32936F;
-    --color-neutral-55: #233d4d;
-
+    --color-neutral-66: #233d4d;
+    --color-neutral-77: #126b6b;
 }
 
 
@@ -39,7 +39,7 @@ header.rolagem a{
 }
 
 header.rolagem a, header.rolagem i{
-    color:#334753;
+    color:rgb(51, 71, 83);
 }
 
 header.rolagem button{
@@ -112,37 +112,91 @@ header ul li a{
 
 @media only screen and (max-width: 767px) {
 
-    /* Modifique o tamanho do logotipo */
     .logo img {
         width: 60px;
     }
 
-    /* Ajuste o espaçamento do cabeçalho */
     header {
         padding: 20px 4%;
     }
 
-    /* Modifique o tamanho do ícone do menu */
     header i {
         font-size: 24px;
     }
 
-    /* Alinhe os itens do menu verticalmente */
     header ul {
         display: inline-block;
         text-align: center;
-        margin-top: 5px; /* Adicione margem no topo para melhor espaçamento */
+        margin-top: 5px;
     }
 
-    /* Adicione margem inferior para os itens do menu */
     header ul li {
         display: block;
         margin: 5px 0;
     }
 
-    /* Ajuste o tamanho do botão de contato */
     .btn_contato button {
         width: 110px;
         height: 40px;
+    }
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.btn_login button {
+    width: 120px;
+    height: 40px;
+    border: 0;
+    border-radius: 4px;
+    transition: .2s;
+    background-color: var(--color-neutral-77);
+    color: #fff;
+    cursor: pointer;
+    margin-right: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.btn_login button:hover {
+    opacity: 0.9;
+}
+
+.btn_contato button{
+    width: 120px;
+    height: 40px;
+    border: 0;
+    border-radius: 4px;
+    transition: .2s;
+    background-color: #c09e38;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+
+header.rolagem .btn_login button {
+    background-color: #1a5c53;
+    color: #fff;
+}
+
+header.rolagem .btn_contato button{
+    background-color: #334753;
+    color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+    .header-buttons {
+        /* ex.: flex-direction: column; */
+        /* ex.: margin-top: 10px; */
+    }
+
+    .btn_login button {
+        width: 110px;
+        height: 40px;
+        margin-right: 10px;
     }
 }
