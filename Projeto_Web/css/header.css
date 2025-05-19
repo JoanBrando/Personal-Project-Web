@@ -1,202 +1,261 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root{
     --color-neutral-1: #fff;
-    --color-neutral-11: #c09e38;
-    --color-neutral-22: #405862;
-    --color-neutral-33: #aaaa;
-    --color-neutral-44: #faffd8;
-    --color-neutral-55: #32936F;
-    --color-neutral-66: #233d4d;
-    --color-neutral-77: #126b6b;
+    --color-neutral-11: #c09e38;    /* Dourado */
+    --color-neutral-66: #233d4d;    /* Azul petróleo escuro */
+    --color-neutral-77: #126b6b;    /* Verde azulado escuro */
+
+    --header-default-text: #fff;
+    --header-scroll-text: #334753;
+    --header-height-config: 70px; /* Altura do header ajustada */
+    --header-padding-vertical: 15px; /* Padding vertical do header */
+    --header-padding-vertical-scroll: 10px; /* Padding vertical no scroll */
 }
 
-
-.logo img{
-    width: 60px;
-    
-}
-
-header{
-    z-index: +1;
+/* Estilo base para todos os headers que usam estas classes/ID */
+header#header,
+header.login-header, /* Para pegar o header do sistemaadm.html também */
+header.common-header-style { /* Classe genérica que pode ser adicionada */
+    z-index: 1000; 
     width: 100%;
-    padding: 30px 4%;
+    padding: var(--header-padding-vertical) 4%; 
     position: fixed;
     top: 0;
     left: 0;
-    transition: .5s;
-
+    transition: background-color 0.5s, padding 0.5s;
+    background-color: transparent; 
+    height: var(--header-height-config);
+    display: flex; 
+    align-items: center;
 }
 
-header.rolagem{
-    background-color: #fff;
-    padding: 20px 4%;
+/* Efeito de rolagem base */
+header#header.rolagem,
+header.login-header.rolagem,
+header.common-header-style.rolagem {
+    background-color: var(--color-neutral-1); 
+    padding: var(--header-padding-vertical-scroll) 4%; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-header.rolagem a{
-    color:#334753;
+/* Container dentro do header */
+header#header .container,
+header.login-header .container,
+header.common-header-style .container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-header.rolagem a, header.rolagem i{
-    color:rgb(51, 71, 83);
+/* Logo padrão - para index.html */
+header#header .logo .logo-img { 
+    width: 50px; /* Tamanho ajustado da logo */
+    height: auto;
+    display: block;
 }
 
-header.rolagem button{
-    background-color: #334753;
-    color: #fff;
-}
-
-header.rolagem .logo img{
-    color: #334753;
-}
-
-header i{
-    font-size: 30px;
-    color: #fff;
-}
-
-header ul{
+/* Navegação principal - para index.html */
+header#header nav.main-nav ul {
     list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
 }
 
-header ul li{
+header#header nav.main-nav ul li {
     display: inline-block;
-    margin: 0 90px;
+    margin: 0 30px; /* Espaçamento padrão para desktop */
 }
 
-header ul li a{
-    color:#fff;
+header#header nav.main-nav ul li a {
+    color: var(--header-default-text);
     text-decoration: none;
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
 }
 
-.btn_contato button{
-    width: 120px;
-    height: 40px;
-    border: 0;
-    transition: .2s;
-    background-color: #c09e38;
-    ;
-    color: #fff;
-    cursor: pointer;
+header#header nav.main-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-neutral-11); 
+    transition: width 0.3s ease-in-out;
 }
 
-@media only screen and (max-width: 1366px) {
-    /* Adicione margem inferior para os itens do menu */
-    header ul li {
-        display: inline-block;
-        margin: 0 60px;
-    }
+header#header nav.main-nav ul li a:hover::after,
+header#header nav.main-nav ul li a.active::after {
+    width: 100%;
 }
 
-@media only screen and (max-width: 1280px) {
-    header ul li {
-        display: inline-block;
-        margin: 0 40px;
-    }
+header#header nav.main-nav ul li a:hover {
+    color: var(--color-neutral-11); 
 }
 
-@media only screen and (max-width: 1024px) {
-    header ul li {
-        display: inline-block;
-        margin: 0 30px;
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    header ul li {
-        display: inline-block;
-        margin: 0 20px;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-
-    .logo img {
-        width: 60px;
-    }
-
-    header {
-        padding: 20px 4%;
-    }
-
-    header i {
-        font-size: 24px;
-    }
-
-    header ul {
-        display: inline-block;
-        text-align: center;
-        margin-top: 5px;
-    }
-
-    header ul li {
-        display: block;
-        margin: 5px 0;
-    }
-
-    .btn_contato button {
-        width: 110px;
-        height: 40px;
-    }
-}
-
-.header-buttons {
+/* Botões do header - para index.html */
+header#header .header-buttons {
     display: flex;
     align-items: center;
 }
 
-.btn_login button {
-    width: 120px;
-    height: 40px;
+header#header .btn_login button,
+header#header .btn_contato button {
+    width: 110px; /* Tamanho ajustado */
+    height: 38px; /* Altura ajustada */
     border: 0;
     border-radius: 4px;
-    transition: .2s;
-    background-color: var(--color-neutral-77);
-    color: #fff;
+    transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+    color: var(--color-neutral-1);
     cursor: pointer;
-    margin-right: 15px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    font-size: 0.9em; /* Tamanho da fonte ajustado */
 }
 
-.btn_login button:hover {
+header#header .btn_login button {
+    background-color: var(--color-neutral-77); 
+    margin-right: 10px; /* Espaçamento ajustado */
+}
+
+header#header .btn_contato button {
+    background-color: var(--color-neutral-11); 
+}
+
+header#header .btn_login button:hover {
     opacity: 0.9;
 }
+header#header .btn_contato button:hover {
+    background-color: #a58a30; 
+}
 
-.btn_contato button{
-    width: 120px;
-    height: 40px;
-    border: 0;
-    border-radius: 4px;
-    transition: .2s;
-    background-color: #c09e38;
-    color: #fff;
+/* Menu Hambúrguer - para index.html (ou outros headers se a estrutura for adicionada) */
+header#header .hamburger-menu {
+    display: none; 
+    font-size: 26px; /* Tamanho ajustado */
+    color: var(--header-default-text);
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    padding: 5px;
 }
 
-
-header.rolagem .btn_login button {
-    background-color: #1a5c53;
-    color: #fff;
+/* Estilos de rolagem para elementos específicos do header da index.html */
+header#header.rolagem nav.main-nav ul li a,
+header#header.rolagem .hamburger-menu { 
+    color: var(--header-scroll-text);
 }
 
-header.rolagem .btn_contato button{
-    background-color: #334753;
-    color: #fff;
+header#header.rolagem nav.main-nav ul li a:hover {
+    color: var(--color-neutral-11); 
+}
+
+header#header.rolagem .btn_login button {
+    background-color: #1a5c53; 
+    color: var(--color-neutral-1);
+}
+
+header#header.rolagem .btn_contato button {
+    background-color: var(--color-neutral-66); 
+    color: var(--color-neutral-1);
+}
+
+/* Media Queries para o header da index.html (main-nav, hamburger) */
+@media only screen and (max-width: 1200px) { 
+    header#header nav.main-nav ul li {
+        margin: 0 20px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    header#header nav.main-nav { /* Esconde nav principal e prepara para mobile */
+        display: none; 
+        position: absolute;
+        top: var(--header-height-config); 
+        left: 0;
+        width: 100%;
+        background-color: var(--color-neutral-1); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        z-index: -1; 
+    }
+
+    header#header.rolagem nav.main-nav { /* Fundo do menu mobile durante rolagem */
+         background-color: var(--color-neutral-1);
+    }
+    
+    header#header nav.main-nav.active { /* Mostra menu mobile */
+        display: block; 
+    }
+
+    header#header nav.main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    header#header nav.main-nav ul li {
+        display: block; 
+        margin: 10px 0; 
+        width: 100%;
+        text-align: center;
+    }
+
+    header#header nav.main-nav ul li a {
+        color: var(--header-scroll-text); 
+        padding: 12px 20px;
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 5px;
+    }
+    header#header nav.main-nav ul li a:hover,
+    header#header nav.main-nav ul li a.active {
+        background-color: var(--color-neutral-11); 
+        color: var(--color-neutral-1);
+    }
+    header#header nav.main-nav ul li a::after { 
+        display: none;
+    }
+
+    header#header .hamburger-menu { /* Mostra ícone do hambúrguer */
+        display: block; 
+    }
 }
 
 @media only screen and (max-width: 767px) {
-    .header-buttons {
-        /* ex.: flex-direction: column; */
-        /* ex.: margin-top: 10px; */
+    /* Ajustes gerais para headers menores */
+    header#header, header.login-header, header.common-header-style {
+        padding-left: 3%;
+        padding-right: 3%;
     }
+    header#header .logo .logo-img { 
+        width: 45px; /* Logo menor */
+    }
+    header#header .hamburger-menu {
+        font-size: 24px;
+    }
+    header#header .btn_login button,
+    header#header .btn_contato button {
+        width: 90px; /* Botões menores */
+        height: 34px;
+        font-size: 0.85em;
+    }
+}
 
-    .btn_login button {
-        width: 110px;
-        height: 40px;
-        margin-right: 10px;
+@media only screen and (max-width: 480px) {
+    header#header .header-buttons .btn_contato { 
+        display: none; /* Esconde botão de contato em telas muito pequenas */
+    }
+     header#header .btn_login button {
+        width: 80px;
+    }
+    header#header nav.main-nav ul li a { 
+        padding: 14px 20px; /* Área de toque maior */
     }
 }

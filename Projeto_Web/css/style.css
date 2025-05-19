@@ -8,55 +8,77 @@
 }
 
 :root{
-    --color-neutral-1: #fff;
-    --color-neutral-11: #c09e38;
-    --color-neutral-22: #405862;
-    --color-neutral-33: #aaaa;
-    --color-neutral-44: #faffd8;
-    --color-neutral-55: #32936F;
-    --color-neutral-55: #233d4d;
+    /* Global color variables (pode ter algumas duplicadas com header/footer, idealmente centralizar) */
+    --color-neutral-1: #fff;       /* Branco */
+    --color-neutral-11: #c09e38;   /* Dourado */
+    --color-neutral-22: #405862;   /* Cinza azulado escuro */
+    --color-neutral-33: #aaaa;     /* Cinza transparente */
+    --color-neutral-44: #faffd8;   /* Amarelo claro */
+    
+    /* Renomeado para evitar conflito direto com --color-neutral-55 do seu style.css original que tinha duas definições */
+    --color-theme-primary-dark: #233d4d; /* Azul petróleo escuro (era uma das definições de --color-neutral-55) */
+    --color-primary-action: #32936F;   /* Verde para botões (era outra definição de --color-neutral-55) */
+    
+    --header-height-config: 80px; /* Mantido caso o banner ou outro elemento precise saber a altura do header fixo */
+}
 
+html {
+    scroll-behavior: smooth;
+    height: 100%; /* Para body com min-height: 100% funcionar bem se precisar de footer colado em baixo */
 }
 
 body{
-    display: block;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    gap: 16px;
-
+    background-color: var(--color-neutral-1);
+    color: var(--color-theme-primary-dark); 
+    display: flex; /* Para layout de footer colado em baixo, se necessário */
+    flex-direction: column; /* Para layout de footer colado em baixo */
+    min-height: 100%; /* Para layout de footer colado em baixo */
+    /* As propriedades justify-content, align-items, gap do seu body original foram removidas pois são
+       mais adequadas para centralizar um único componente, não para um layout de página inteira. */
 }
 
-html{
-    height: 100vh;
+main { /* Para garantir que o footer fique em baixo em páginas com pouco conteúdo */
+    flex-grow: 1;
 }
 
-.container{
-    max-width: 1920px;
-    margin: auto;
+
+.container{ 
+    max-width: 1920px; 
+    width: 90%; /* Mais flexível que padding fixo em telas muito grandes ou pequenas */
+    margin: 0 auto;
+    /* padding: 0 20px; Removido para usar width: 90% */
 }
 
-.flex{
+/* .flex foi removido daqui pois header.css tem sua própria definição para .container dentro do header.
+   Se precisar de uma classe .flex genérica, defina-a aqui. */
+/*
+.flex{ 
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+*/
 
+/* Banner Styles */
 .banner{
     width: 100%;
-    height: 100%;
-    background-image: url(../Imagens/Background/watercolor-splash-background.jpg);
+    /* Use min-height se o conteúdo do banner puder ser maior */
+    height: 500px; /* Altura fixa, ou use vh e calc se quiser relativo à tela e header */
+    /* Se o header for fixo e com altura definida em --header-height-config, você pode usar: */
+    /* margin-top: var(--header-height-config); */
+    /* height: calc(100vh - var(--header-height-config)); */ /* Para banner de tela cheia abaixo do header */
+
+    background-image: url(../Imagens/Background/watercolor-splash-background.jpg); 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    padding-bottom: 50px;
+    position: relative; /* Para o ::after */
+    padding-bottom: 50px; /* Espaço para o gradiente */
+    text-align: center;
 }
-
 
 .banner::after {
     content: '';
@@ -64,61 +86,429 @@ html{
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 25%;
+    height: 25%; 
     background: linear-gradient(to top, var(--color-neutral-1) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none; 
 }
 
-
 .banner h1{
     font-size: 3em;
-    display: inline-block;
-    text-align: center;
     color: var(--color-neutral-1);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .banner h1 span{
-    color: var(--color-neutral-11);
+    color: var(--color-neutral-11); /* Dourado */
 }
 
-.card{
-    right: auto;
-    background-color: var(--color-neutral-22);
-    width: 1055px;
-    height: 500px;
+/* Continuação do style.css ... */
+
+/* Product Showcase Section */
+.product-showcase {
+    background-color: transparent; 
+    padding: 60px 0; 
+    margin-top: 20px; 
+}
+
+.product-showcase .section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--color-theme-primary-dark); 
+    margin-bottom: 50px; 
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+}
+
+.product-card {
+    background-color: var(--color-neutral-1); /* Fundo do card geral, pode ser removido se a caixa de info for transparente e o box da imagem também */
     border-radius: 12px;
-    box-shadow: 12px 12px 12px var(--color-neutral-33);
-    margin: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+    overflow: hidden; /* Importante para o efeito do .box */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
 
+/* NOVO EFEITO UIVERSE.IO PARA A ÁREA DA IMAGEM (.box) */
+.product-card .box { /* Este .box é a área da imagem com o novo efeito */
+    position: relative;
+    width: 100%; /* Ocupa a largura do product-card */
+    height: 280px; /* Altura fixa para a área da imagem, ajuste conforme necessário */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    z-index: 1;
+    /* background-color: #f0f0f0; /* Um fundo suave se a imagem não cobrir tudo */
+}
+
+.product-card .box::before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    /* left: 50px; Ajustado para ser responsivo */
+    left: 50%;
+    width: 60%; /* Ajustado para cobrir mais */
+    height: 100%;
+    text-decoration: none;
+    background: #fff; /* Cor base do efeito */
+    border-radius: 8px;
+    transform: translateX(-50%) skewX(15deg); /* Centraliza antes de inclinar */
+    transition: 0.5s;
+}
+
+.product-card .box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    /* left: 50px;  Ajustado para ser responsivo, erro no original 'left: 50' sem unidade */
+    left: 50%;
+    width: 60%; /* Ajustado para cobrir mais */
+    height: 100%;
+    background: #fff; /* Cor base do efeito */
+    border-radius: 8px;
+    transform: translateX(-50%) skewX(15deg); /* Centraliza antes de inclinar */
+    transition: 0.5s;
+    filter: blur(30px);
+}
+
+.product-card .box:hover::before,
+.product-card .box:hover::after {
+    /* transform: skewX(0deg) scaleX(1.3); Ajustado para funcionar melhor com translateX */
+    transform: translateX(-50%) skewX(0deg) scaleX(1.3);
+    width: 80%; /* Expande um pouco mais no hover */
+}
+
+/* Gradiente para o efeito do card */
+.product-card .box:before,
+.product-card .box:after {
+    background: linear-gradient(315deg, #0e7a32, #075f3d);
+}
+
+.product-card .box span { /* Elementos de brilho */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5; /* Acima dos ::before/::after mas abaixo do .content */
+    pointer-events: none;
+}
+
+.product-card .box span::before {
+    content: '';
+    position: absolute;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.2s, top 0.2s, left 0.2s; /* Transição mais suave */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    /* Animação original, pode ser reativada se desejado com @keyframes */
+    /* animation: animate 2s ease-in-out infinite; */
+    top: -30px; /* Ajustado para posicionamento relativo */
+    left: 30px;
+    width: 40px; /* Dimensões ajustadas */
+    height: 40px;
+}
+.product-card .box:hover span::before { /* Mostra o brilho no hover do .box */
+    opacity: 1;
+    top: -20px;
+    left: 20px;
+}
+
+
+.product-card .box span::after { /* Outro elemento de brilho */
+    content: '';
+    position: absolute;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.2s, bottom 0.2s, right 0.2s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    /* animation: animate 2s ease-in-out infinite; */
+    /* animation-delay: -1s; */
+    bottom: -30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+}
+.product-card .box:hover span::after {
+    opacity: 1;
+    bottom: -20px;
+    right: 20px;
+}
+
+
+.product-card .box .content { /* Conteúdo dentro do .box (a imagem) */
+    position: relative; /* Para que o z-index funcione corretamente */
+    width: 90%; /* Ajuste para a imagem não colar nas bordas do .box */
+    height: 90%; /* Ajuste para a imagem não colar nas bordas do .box */
+    padding: 0; /* Removido padding original do Uiverse que era para texto */
+    background: rgba(255, 255, 255, 0.05); /* Fundo translúcido sutil do Uiverse */
+    backdrop-filter: blur(5px); /* Reduzido o blur para performance */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 10; /* Conteúdo (imagem) acima dos brilhos e efeitos */
+    transition: transform 0.5s; /* Transição do Uiverse */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-card .box:hover .content { /* Efeito de hover no conteúdo do Uiverse */
+    transform: translateY(-5px); /* Pequena elevação */
+}
+
+.product-card .box .content .product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+    border-radius: 4px; /* Se a imagem precisar de borda arredondada */
+}
+
+
+/* Caixa de Informações do Produto - ABAIXO do .box da imagem */
+.product-info-box {
+    padding: 20px;
+    text-align: center;
+    /* background-color: var(--color-neutral-1); CAIXA TRANSPARENTE */
+    background-color: rgba(255, 255, 255, 0.85); /* Branco translúcido para legibilidade */
+    /* Se a seção product-showcase tiver um fundo, esta transparência o revelará.
+       Se o body for o fundo, revelará o fundo do body. */
+    border-top: 1px solid rgba(0,0,0,0.05); /* Borda sutil se necessário */
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-info-box h3 {
+    font-size: 1.3em; 
+    color: var(--color-theme-primary-dark); /* Cor escura para contraste com fundo claro/transparente */
+    margin-bottom: 10px;
+}
+
+.product-info-box .product-description {
+    font-size: 0.9em;
+    color: #444; /* Cor escura para contraste */
+    margin-bottom: 12px;
+    line-height: 1.5;
+    min-height: 60px; 
+}
+
+.product-info-box .product-price {
+    font-size: 1.4em; 
+    font-weight: bold;
+    color: var(--color-primary-action); /* Verde mantido */
+    margin-bottom: 15px;
+}
+
+/* Botões mantêm o esquema de cores original */
+.product-actions {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px;
+}
+
+.product-actions button {
+    padding: 12px 15px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.2s;
+    flex-grow: 1; 
+    font-size: 0.95em;
+}
+
+.product-actions .btn-buy {
+    background-color: var(--color-neutral-11); 
+    color: var(--color-neutral-1);
+}
+.product-actions .btn-buy:hover {
+    background-color: #a58a30; 
+    transform: scale(1.03);
+}
+
+.product-actions .btn-add-cart {
+    background-color: var(--color-theme-primary-dark); 
+    color: var(--color-neutral-1);
+    min-width: 50px; 
+    flex-grow: 0; 
+}
+.product-actions .btn-add-cart:hover {
+    background-color: #1b2f3a; 
+    transform: scale(1.03);
+}
+.product-actions .btn-add-cart i {
+    font-size: 1.2em;
+}
+
+/* Media Queries Gerais para layout de produtos e banner (já existentes e devem funcionar) */
+/* ... (manter as media queries para .product-grid, etc. como estavam) ... */
+
+@media screen and (max-width: 1200px) { 
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 25px;
+    }
+    .product-card .box { /* Ajustar altura da imagem se necessário */
+        height: 260px;
+    }
+}
+
+@media screen and (max-width: 992px) { 
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px;
+    }
+     .product-card .box {
+        height: 240px; /* Ajustar altura da imagem */
+    }
+}
 
 @media screen and (max-width: 768px) {
-    .banner h1 {
-        display: inline-block;
-        text-align: center;
-        font-size: 2.5em;
+    .product-grid {
+        grid-template-columns: 1fr; 
+        gap: 25px; 
     }
-
-    .card {
-        width: 90%;
-        height: auto;
-        box-shadow: none; 
+    .product-card .box { 
+        height: 280px; /* Pode ser um pouco maior em 1 coluna */
     }
-
 }
 
 @media screen and (max-width: 500px) {
-    .banner h1 {
-        display: inline-block;
-        text-align: center;
-        font-size: 2em;
+     .product-card .box {
+        height: 250px;
     }
 }
 
+
+/* Media Queries Gerais para layout de produtos e banner */
+@media screen and (max-width: 1200px) { /* Telas menores de PC / Tablets em paisagem */
+    .container {
+        width: 95%; /* Aumenta um pouco a largura relativa */
+    }
+    .banner h1 {
+        font-size: 2.8em;
+    }
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 produtos por linha */
+        gap: 25px;
+    }
+    .product-info-box h3 {
+        font-size: 1.2em;
+    }
+    .product-info-box .product-price {
+        font-size: 1.3em;
+    }
+}
+
+@media screen and (max-width: 992px) { /* Tablets em modo retrato */
+    .banner h1 {
+        font-size: 2.5em;
+    }
+    .product-showcase .section-title {
+        font-size: 2.2em;
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 produtos por linha */
+        gap: 20px;
+    }
+     .product-card .box {
+        height: 250px; /* Ajusta altura da imagem */
+    }
+    .product-info-box h3 {
+        font-size: 1.15em;
+    }
+    .product-info-box .product-description {
+        font-size: 0.85em;
+        min-height: 50px;
+    }
+    .product-info-box .product-price {
+        font-size: 1.2em;
+    }
+    .product-actions button {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Media query original de 768px para banner e card (agora product-card) */
+@media screen and (max-width: 768px) {
+    .banner h1 {
+        font-size: 2.2em; 
+        padding: 0 10px; 
+    }
+    /* O .card original virou .product-card, o estilo de width: 90% e height:auto
+       já está implícito no comportamento responsivo do .product-card */
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 produto por linha */
+        gap: 25px; 
+    }
+    .product-card .box { 
+        height: 300px; /* Ajusta altura da imagem para layout de 1 coluna */
+    }
+    .product-showcase .section-title {
+        font-size: 2em;
+    }
+    .product-info-box {
+        padding: 15px;
+    }
+}
+
+/* Media query original de 500px */
+@media screen and (max-width: 500px) {
+    .banner h1 {
+        font-size: 1.8em; 
+    }
+    .product-showcase .section-title {
+        font-size: 1.8em;
+    }
+     .product-card .box {
+        height: 260px;
+    }
+    .product-info-box h3 {
+        font-size: 1.1em;
+    }
+    .product-info-box .product-description {
+        font-size: 0.8em;
+    }
+    .product-info-box .product-price {
+        font-size: 1.1em;
+    }
+    .product-actions {
+        flex-direction: column; /* Empilha botões */
+    }
+    .product-actions button {
+        width: 100%;
+    }
+    .product-actions .btn-add-cart {
+        margin-top: 8px; 
+    }
+}
+
+/* Media query original de 390px */
 @media screen and (max-width: 390px) {
     .banner h1 {
-        display: inline-block;
-        text-align: center;
-        font-size: 1.5em;
+        font-size: 1.6em;
     }
-} 
+    .product-showcase .section-title {
+        font-size: 1.6em;
+    }
+    .product-card .box {
+        height: 240px;
+    }
+}
+
+/* CSS do Slider deve estar em ../css/slide.css e linkado no HTML */

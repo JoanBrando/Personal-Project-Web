@@ -1,20 +1,18 @@
+/* Importa Poppins se não estiver globalmente no style.css ou header.css para esta página */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root{
-    --color-neutral-1: #fff;
-    --color-neutral-11: #c09e38;
-    --color-neutral-22: #405862;
-    --color-neutral-33: #aaaa;
-    --color-neutral-44: #faffd8;
-    --color-neutral-55-green: #245552;
-    --color-neutral-55-darkteal: #233d4d;
-    --color-text-dark: #333;
-    --color-background-light: #0a3335;
+    /* Variáveis específicas da página de login, podem sobrescrever ou complementar as globais */
+    --color-neutral-1-login: #fff; /* Renomeado para evitar conflito se necessário, ou use o global */
+    --color-neutral-55-green-login: #245552;
+    --color-neutral-55-darkteal-login: #233d4d;
+    --color-text-dark-login: #333;
+    --color-background-light-login: #0a3335; /* Usado para footer e body */
     --login-background-image: url('../Imagens/Background/watercolor-splash-background.jpg');
 }
 
 .login-page-body {
-    background-color: var(--color-background-light);
+    background-color: var(--color-background-light-login);
     background-image: var(--login-background-image);
     background-size: cover;
     background-position: center center;
@@ -25,75 +23,117 @@
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    padding-top: 60px;
+    /* padding-top do header fixo será herdado de header.css se header tiver altura fixa */
+    /* Se header.login-header tiver altura diferente, ajuste aqui */
+    padding-top: var(--header-height-config, 70px); /* Fallback caso a var não seja lida de header.css */
 }
 
-#header.login-header .login-header-flex-container {
-    justify-content: flex-start;
+/* Estilos para o header específico da página de login */
+/* O header.css base já define position:fixed, z-index, etc. */
+/* O HTML tem <header id="header" class="login-header">, então herda de header#header */
+
+header#header.login-header {
+    /* Ajustes específicos para o header da página de login, se necessário */
+    /* A cor de fundo na rolagem já é tratada por header.css se .rolagem for adicionado */
+}
+header#header.login-header.rolagem { /* Sobrescreve o fundo de rolagem padrão se necessário */
+    background-color: var(--color-neutral-55-darkteal-login);
 }
 
-#header.login-header .logo {
-    margin-right: 20px;
+
+/* Ajusta o container flex do header da página de login */
+header#header.login-header .container { /* O seu HTML usa <div class="flex login-header-flex-container"> */
+                                       /* Vou assumir que o .container é o flex container agora */
+    justify-content: flex-start; /* Alinha itens à esquerda */
 }
 
-#header.login-header nav ul li a {
+header#header.login-header .logo { /* Div da logo */
+    margin-right: auto; /* Empurra a navegação para a direita */
+}
+header#header.login-header .logo img { /* A imagem da logo em si */
+    width: 50px; /* Ou o tamanho desejado para esta página */
+    height: auto;
+}
+
+/* Navegação específica da página de login */
+header#header.login-header nav.login-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+header#header.login-header nav.login-nav ul li {
+    /* Não precisa de margin aqui se só tem um item */
+}
+header#header.login-header nav.login-nav ul li a {
     font-size: 1em;
     padding: 10px 15px;
-    color: var(--color-neutral-1);
+    color: var(--header-default-text, #fff); /* Usa var do header.css com fallback */
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: color 0.3s, background-color 0.3s;
+}
+header#header.login-header nav.login-nav ul li a:hover {
+    color: var(--color-neutral-11, #c09e38); /* Dourado no hover */
+    background-color: rgba(255,255,255,0.1);
 }
 
-header.login-header.rolagem nav ul li a {
-    color: var(--color-neutral-1);
+/* Cor do link HOME na rolagem */
+header#header.login-header.rolagem nav.login-nav ul li a {
+    color: var(--header-scroll-text, #334753); /* Texto escuro na rolagem */
 }
-header.login-header.rolagem {
-    background-color: var(--color-neutral-55-darkteal);
+header#header.login-header.rolagem nav.login-nav ul li a:hover {
+    color: var(--color-neutral-11, #c09e38);
+    background-color: rgba(0,0,0,0.05);
 }
+
 
 .login-main-content {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem; /* Espaçamento interno */
 }
 
 .login-container {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95); /* Levemente mais opaco */
     padding: 2rem 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+    border-radius: 12px; /* Bordas mais arredondadas */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25); /* Sombra mais pronunciada */
     width: 100%;
     max-width: 450px; 
     text-align: center;
 }
 
 .login-container h2 {
-    color: var(--color-neutral-55-darkteal);
-    margin-bottom: 1.5rem;
-    font-size: 1.8em;
+    color: var(--color-neutral-55-darkteal-login);
+    margin-bottom: 1.8rem; /* Mais espaço */
+    font-size: 2em; /* Título maior */
     font-weight: 600;
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem; /* Mais espaço */
     text-align: left; 
 }
 
 .form-group label {
     display: block;
-    color: var(--color-neutral-22);
-    margin-bottom: 0.5rem;
+    color: var(--color-neutral-22, #405862); /* Cor do seu header.css */
+    margin-bottom: 0.6rem; /* Mais espaço */
     font-weight: 500;
-    font-size: 0.95em;
+    font-size: 1em; /* Tamanho da label */
 }
 
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"] {
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1rem; /* Padding maior */
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px; /* Bordas mais suaves */
     box-sizing: border-box;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
@@ -103,38 +143,41 @@ header.login-header.rolagem {
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
 .form-group input[type="password"]:focus {
-    border-color: var(--color-neutral-55-green);
+    border-color: var(--color-neutral-55-green-login);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(50, 147, 111, 0.15);
+    box-shadow: 0 0 0 3px rgba(36, 85, 82, 0.2); /* Sombra do foco com a cor verde */
 }
 
 .btn-login-submit {
-    background-color: var(--color-neutral-55-green);
-    color: var(--color-neutral-1); 
-    padding: 0.8rem 1.5rem;
+    background-color: var(--color-neutral-55-green-login);
+    color: var(--color-neutral-1-login); 
+    padding: 0.9rem 1.5rem; /* Padding maior */
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1.1em;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     width: 100%; 
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     text-transform: uppercase;
+    letter-spacing: 0.5px; /* Pequeno espaçamento entre letras */
 }
 
 .btn-login-submit:hover {
-    background-color: #1e4d49;
+    background-color: #1e4d49; /* Verde mais escuro no hover */
+    transform: translateY(-2px); /* Efeito de elevação */
 }
 
 .form-links {
-    margin-top: 1.5rem;
-    font-size: 0.9em;
+    margin-top: 1.8rem; /* Mais espaço */
+    font-size: 0.95em; /* Links um pouco maiores */
 }
 
 .form-links a {
-    color: var(--color-neutral-55-green);
+    color: var(--color-neutral-55-green-login);
     text-decoration: none;
+    font-weight: 500; /* Links com mais destaque */
 }
 
 .form-links a:hover {
@@ -142,49 +185,59 @@ header.login-header.rolagem {
 }
 
 .form-links p {
-    margin-top: 0.75rem;
-    color: var(--color-neutral-22);
+    margin-top: 0.85rem; /* Espaço ajustado */
+    color: var(--color-neutral-22, #405862);
 }
 
 #login-footer {
-    background-color: var(--color-background-light);
-    color: var(--color-neutral-1);
+    background-color: transparent; /* Footer transparente para ver o fundo da página */
+    color: var(--color-neutral-1-login); /* Texto branco para contraste */
     text-align: center;
-    padding: 1rem 0;
+    padding: 1.5rem 0; /* Mais padding */
     font-size: 0.9em;
     width: 100%;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra no texto para legibilidade */
 }
 
+/* Media queries específicos para login, se necessário, além dos do header.css */
 @media screen and (max-width: 767px) {
     .login-page-body {
-        padding-top: 50px;
+        padding-top: var(--header-height-config, 70px); /* Garante o padding mesmo se a var falhar */
     }
 
-    #header.login-header .login-header-flex-container {
-        flex-direction: row;
-        align-items: center;
+    header#header.login-header .logo img {
+        /* No seu HTML a imagem da logo é <img class="logo" ...>, não logo-img */
+        /* Se for class="logo-img", use: header#header.login-header .logo .logo-img */
+        /* Ajuste o seletor se necessário. Vou usar o que está no seu login.html: .logo (para a imagem) */
+        /* O header.css já tem um .logo .logo-img, então para sobrescrever: */
     }
-     #header.login-header .logo img{
-        max-width: 120px;
-     }
+    header#header.login-header .logo img.logo { /* Se a imagem tem class="logo" */
+        width: 45px; /* Mantém consistência com outros headers em mobile */
+    }
 
-    #header.login-header nav ul li a {
-        padding: 8px 10px;
+
+    header#header.login-header nav.login-nav ul li a {
+        padding: 8px 12px; /* Padding menor para o link HOME */
     }
 }
 
 @media screen and (max-width: 480px) {
     .login-container {
-        padding: 1.5rem;
-        margin: 0 1rem;
+        padding: 2rem 1.5rem; /* Padding horizontal ajustado */
+        margin: 0 1rem; /* Garante margem nas laterais */
     }
 
     .login-container h2 {
-        font-size: 1.6em;
+        font-size: 1.7em; /* Título ajustado */
     }
 
     .btn-login-submit {
         font-size: 1em;
-        padding: 0.7rem 1.2rem;
+        padding: 0.8rem 1.2rem;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        padding: 0.8rem;
     }
 }
