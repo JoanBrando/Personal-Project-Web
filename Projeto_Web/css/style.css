@@ -63,7 +63,7 @@ main { /* Para garantir que o footer fique em baixo em páginas com pouco conte�
 .banner{
     width: 100%;
     /* Use min-height se o conteúdo do banner puder ser maior */
-    height: 500px; /* Altura fixa, ou use vh e calc se quiser relativo à tela e header */
+    height: 900px; /* Altura fixa, ou use vh e calc se quiser relativo à tela e header */
     /* Se o header for fixo e com altura definida em --header-height-config, você pode usar: */
     /* margin-top: var(--header-height-config); */
     /* height: calc(100vh - var(--header-height-config)); */ /* Para banner de tela cheia abaixo do header */
@@ -190,7 +190,7 @@ main { /* Para garantir que o footer fique em baixo em páginas com pouco conte�
 /* Gradiente para o efeito do card */
 .product-card .box:before,
 .product-card .box:after {
-    background: linear-gradient(315deg, #0e7a32, #075f3d);
+    background: linear-gradient(315deg, #126b6b, #0d694a);
 }
 
 .product-card .box span { /* Elementos de brilho */
