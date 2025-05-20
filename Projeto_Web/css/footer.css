@@ -188,10 +188,3 @@ footer{
     }
 }
 
-/* Para telas muito pequenas, já coberto pelo 768px, mas pode ajustar mais se necessário */
-/* @media screen and (max-width: 576px){  
-    #footer-contacts h3,
-    #footer-subscribe h3 {
-        font-size: 1.1em;
-    }
-} */
