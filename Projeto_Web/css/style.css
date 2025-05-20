@@ -190,7 +190,7 @@ main { /* Para garantir que o footer fique em baixo em p√°ginas com pouco conte√
 /* Gradiente para o efeito do card */
 .product-card .box:before,
 .product-card .box:after {
-    background: linear-gradient(315deg, #126b6b, #0d694a);
+    background: linear-gradient(315deg, #0d694a, #2e9696);
 }
 
 .product-card .box span { /* Elementos de brilho */
