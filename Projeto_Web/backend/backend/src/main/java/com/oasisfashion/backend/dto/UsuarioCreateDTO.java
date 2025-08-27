@@ -2,6 +2,7 @@ package com.oasisfashion.backend.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,20 +11,22 @@ import lombok.Data;
 
 @Data
 public class UsuarioCreateDTO {
-    @NotBlank(message = "O nome é obrigatório.")
-    private String nome;
-
-    @NotBlank(message = "O email é obrigatório.")
-    @Email(message = "Formato de email inválido.")
+    @NotBlank @Email
     private String email;
-
-    @NotBlank(message = "A senha é obrigatória.")
-    @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres.")
+    
+    @NotBlank @Size(min = 6)
     private String senha;
 
-    @NotNull(message = "A data de nascimento é obrigatória.")
+    @NotNull
     private LocalDate dataNascimento;
-
-    @NotBlank(message = "O sexo é obrigatório.")
+    
+    @NotBlank
     private String sexo;
+
+    @NotNull(message = "O ID do perfil é obrigatório")
+    private Long perfilId;
+
+    @Valid // Valida o objeto aninhado
+    @NotNull(message = "Os dados da pessoa são obrigatórios")
+    private PessoaDTO pessoa;
 }
