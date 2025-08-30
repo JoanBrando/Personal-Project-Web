@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.oasisfashion.backend.dto.ClienteDTO;
 import com.oasisfashion.backend.dto.FornecedorDTO;
 import com.oasisfashion.backend.dto.PerfilDeUsuarioDTO;
 import com.oasisfashion.backend.dto.PessoaDTO;
+import com.oasisfashion.backend.dto.RegistroDTO;
 import com.oasisfashion.backend.dto.UsuarioCreateDTO;
 import com.oasisfashion.backend.dto.UsuarioDTO;
 import com.oasisfashion.backend.exception.ResourceNotFoundException;
@@ -32,6 +34,9 @@ public class UsuarioService {
     @Autowired
     private PerfilDeUsuarioRepository perfilDeUsuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Pessoa toPessoaEntity(PessoaDTO dto) {
         if (dto instanceof ClienteDTO) {
             ClienteDTO clienteDTO = (ClienteDTO) dto;
@@ -43,6 +48,7 @@ public class UsuarioService {
             cliente.setHistoricoCompras(clienteDTO.getHistoricoCompras());
             cliente.setLimiteCredito(clienteDTO.getLimiteCredito());
             return cliente;
+            
         } else if (dto instanceof FornecedorDTO) {
             FornecedorDTO fornecedorDTO = (FornecedorDTO) dto;
             Fornecedor fornecedor = new Fornecedor();
@@ -94,6 +100,36 @@ public class UsuarioService {
         return dto;
     }
 
+    public UsuarioDTO registrar(RegistroDTO registroDTO) {
+        if (usuarioRepository.findByEmail(registroDTO.getEmail()).isPresent()) {
+            // CORREÇÃO APLICADA AQUI: Usando exceção padrão do Java
+            throw new IllegalArgumentException("Este e-mail já está cadastrado.");
+        }
+        
+        long perfilPadraoId = 2L; 
+        PerfilDeUsuario perfil = perfilDeUsuarioRepository.findById(perfilPadraoId)
+            .orElseThrow(() -> new ResourceNotFoundException("Perfil padrão de usuário não encontrado. ID: " + perfilPadraoId));
+
+        Cliente novoCliente = new Cliente();
+        novoCliente.setNome(registroDTO.getNome());
+        
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setEmail(registroDTO.getEmail());
+        novoUsuario.setSenha(passwordEncoder.encode(registroDTO.getSenha()));
+        novoUsuario.setPerfil(perfil);
+        novoUsuario.setPessoa(novoCliente);
+
+        Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);
+        
+        return toUsuarioDTO(usuarioSalvo);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Usuario> authenticate(String email, String senha) {
+        return usuarioRepository.findByEmail(email)
+            .filter(usuario -> passwordEncoder.matches(senha, usuario.getSenha()));
+    }
+
     @Transactional(readOnly = true)
     public List<UsuarioDTO> findAll() {
         return usuarioRepository.findAll().stream()
@@ -114,7 +150,7 @@ public class UsuarioService {
 
         Usuario usuario = new Usuario();
         usuario.setEmail(createDTO.getEmail());
-        usuario.setSenha(createDTO.getSenha()); // Lembrete: Criptografar em produção!
+        usuario.setSenha(passwordEncoder.encode(createDTO.getSenha()));
         usuario.setDataNascimento(createDTO.getDataNascimento());
         usuario.setSexo(createDTO.getSexo());
         usuario.setPerfil(perfil);
@@ -131,7 +167,6 @@ public class UsuarioService {
         usuario.setEmail(usuarioDTO.getEmail());
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
         usuario.setSexo(usuarioDTO.getSexo());
-        // Nota: Geralmente não se atualiza perfil ou pessoa por este endpoint, mas é possível adicionar a lógica se necessário.
         
         Usuario usuarioAtualizado = usuarioRepository.save(usuario);
         return toUsuarioDTO(usuarioAtualizado);
@@ -142,11 +177,5 @@ public class UsuarioService {
             throw new ResourceNotFoundException("Usuário não encontrado com o id: " + id);
         }
         usuarioRepository.deleteById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public Optional<Usuario> authenticate(String email, String senha) {
-        return usuarioRepository.findByEmail(email)
-                .filter(usuario -> usuario.getSenha().equals(senha)); // Lembrete: Usar BCrypt em produção
     }
 }

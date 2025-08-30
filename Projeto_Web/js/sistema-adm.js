@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
             
     // --- CONFIGURAÇÕES E SELETORES ---
-    const API_BASE_URL = '/api'; // Base da sua API Java
+    const API_BASE_URL = 'http://localhost:8080/api';
     const navLinks = document.querySelectorAll('.nav-link');
     const contentSections = document.querySelectorAll('.content-section');
     const modal = document.getElementById('crud-modal');
@@ -10,11 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const formFields = document.getElementById('form-fields');
     const editIdField = document.getElementById('edit-id');
     
-    let currentEntity = 'perfis'; // Entidade inicial
+    const entityEndpoints = {
+        perfil: 'perfis',
+        cliente: 'clientes',
+        fornecedor: 'fornecedores'
+    };
+    
+    let currentEntity = 'perfis';
 
     // --- FUNÇÕES DE API (COMUNICAÇÃO COM O BACKEND) ---
     
-    // Função genérica para fazer requisições à API
     const apiRequest = async (endpoint, method = 'GET', body = null) => {
         try {
             const options = {
@@ -26,10 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorText = await response.text();
+                if (errorText.includes('<!DOCTYPE html>')) {
+                     throw new Error(`Endpoint não encontrado ou erro no servidor. Rota chamada: ${response.url}`);
+                }
+                const errorData = JSON.parse(errorText);
                 throw new Error(errorData.message || 'Erro na comunicação com o servidor.');
             }
-            // DELETE não retorna corpo, então tratamos de forma especial
             return response.status === 204 ? null : response.json();
         } catch (error) {
             alert(`Erro de API: ${error.message}`);
@@ -80,9 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Carrega os dados da entidade ativa e renderiza a tabela
+    // CORREÇÃO APLICADA AQUI
     const loadData = async () => {
-        const data = await apiRequest(`/${currentEntity}`);
+        const endpoint = `/${currentEntity}`;
+        const data = await apiRequest(endpoint);
         if (data && renderTable[currentEntity]) {
             renderTable[currentEntity](data);
         }
@@ -138,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- EVENT LISTENERS (AÇÕES DO USUÁRIO) ---
 
-    // Navegação entre seções
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -154,55 +162,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Ações de Adicionar, Editar e Deletar (usando delegação de eventos)
     document.body.addEventListener('click', async (e) => {
         const button = e.target.closest('button');
         if (!button) return;
 
         const { entity, id } = button.dataset;
+        const endpointName = entityEndpoints[entity];
 
-        // Abrir modal para Adicionar
         if (button.classList.contains('btn-add')) {
             openModal(`Cadastrar Novo ${entity.charAt(0).toUpperCase() + entity.slice(1)}`, getFormFieldsHTML(entity));
         }
 
-        // Abrir modal para Editar
         if (button.classList.contains('btn-edit')) {
-            const data = await apiRequest(`/${entity}s/${id}`);
+            const data = await apiRequest(`/${endpointName}/${id}`);
             if (data) {
                 openModal(`Editar ${entity.charAt(0).toUpperCase() + entity.slice(1)}`, getFormFieldsHTML(entity, data), id);
             }
         }
 
-        // Deletar item
         if (button.classList.contains('btn-delete')) {
             if (confirm(`Tem certeza que deseja excluir o item de ID ${id}?`)) {
-                await apiRequest(`/${entity}s/${id}`, 'DELETE');
+                await apiRequest(`/${endpointName}/${id}`, 'DELETE');
                 loadData();
             }
         }
         
-        // Fechar modal
         if (button.classList.contains('btn-cancel')) {
             closeModal();
         }
     });
 
-    // Submissão do formulário (Criar ou Atualizar)
+    // CORREÇÃO APLICADA AQUI
     crudForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = editIdField.value;
         const formData = new FormData(crudForm);
         const data = Object.fromEntries(formData.entries());
         
-        // Converte campos numéricos que podem estar vazios para null
         Object.keys(data).forEach(key => {
             const input = crudForm.querySelector(`[name="${key}"]`);
-            if (input.type === 'number' && input.value === '') {
+            if (input && input.type === 'number' && input.value === '') {
                 data[key] = null;
             }
         });
-        
+
         const endpoint = id ? `/${currentEntity}/${id}` : `/${currentEntity}`;
         const method = id ? 'PUT' : 'POST';
         
@@ -215,5 +218,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INICIALIZAÇÃO ---
     document.getElementById('currentYear').textContent = new Date().getFullYear();
-    loadData(); // Carrega os dados da primeira aba (Perfis)
+    loadData();
 });

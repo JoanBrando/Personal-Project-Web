@@ -1,81 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login - Oásis Fashion</title>
-
     <link rel="icon" type="image/x-icon" href="../Imagens/Oásis Favicon/oasis.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/modal.css">
 </head>
-
 <body class="login-page-body">
 
     <header id="header" class="login-header">
-        <div class="container">
-            <div class="flex login-header-flex-container">
-                <div class="logo">
-                    <a href="index.html" target="_self" rel="next">
-                        <img class="logo" src="../Imagens/Oásis Fashion-Logo/oasis-svg.svg" alt="Logo Oásis Fashion">
-                    </a>
-                </div>
-                <nav class="login-nav">
-                    <ul>
-                        <li>
-                            <a href="index.html" target="_self" rel="next">HOME</a>
-                        <li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+        </header>
     
     <main class="login-main-content">
         <div class="login-container">
-
             <h2>Bem-vindo de volta!</h2>
-
-            <form id="loginForm" action="sistemaadm.html" method="GET">
-                <div class="form-group">
-                    <label for="emailOrUser">Email ou Nome de Usuário:</label>
-                    <input type="text" id="emailOrUser" name="emailOrUser" placeholder="Digite seu email ou usuário" required>
+            <form id="loginForm"> <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu email" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required minlength="6">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
                 </div>
-
                 <div class="form-group">
                     <button type="submit" class="btn-login-submit">ENTRAR</button>
                 </div>
-
                 <div class="form-links">
                     <a href="#">Esqueceu sua senha?</a>
-                    <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+                    <p>Não tem uma conta? <a href="#" id="open-register-modal">Cadastre-se</a></p>
                 </div>
-
             </form>
         </div>
     </main>
 
     <footer id="login-footer">
-
         <div id="footer-copyright">
             © <span id="currentYear"></span> todos os direitos reservados
         </div>
     </footer>
 
-    <script src="../js/menu.js"></script>
-
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
-</body>
+    <div id="register-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-register-modal">&times;</button>
+            <h2>Criar Nova Conta</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="register-nome">Nome Completo:</label>
+                    <input type="text" id="register-nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-senha">Senha (mínimo 6 caracteres):</label>
+                    <input type="password" id="register-senha" name="senha" required minlength="6">
+                </div>
+                 <div class="form-group">
+                    <label for="register-confirma-senha">Confirme a Senha:</label>
+                    <input type="password" id="register-confirma-senha" required minlength="6">
+                </div>
+                <button type="submit" class="btn-login-submit">CADASTRAR</button>
+            </form>
+        </div>
+    </div>
+    <script src="../js/login.js"></script> </body>
 </html>

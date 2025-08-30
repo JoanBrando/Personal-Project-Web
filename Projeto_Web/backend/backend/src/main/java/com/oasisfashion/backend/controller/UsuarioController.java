@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oasisfashion.backend.dto.LoginDTO;
+import com.oasisfashion.backend.dto.RegistroDTO;
 import com.oasisfashion.backend.dto.UsuarioCreateDTO;
 import com.oasisfashion.backend.dto.UsuarioDTO;
 import com.oasisfashion.backend.service.UsuarioService;
@@ -28,6 +29,19 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @PostMapping("/registrar")
+    public ResponseEntity<UsuarioDTO> registrarUsuario(@Valid @RequestBody RegistroDTO registroDTO) {
+        UsuarioDTO novoUsuario = usuarioService.registrar(registroDTO);
+        return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
+        return usuarioService.authenticate(loginDTO.getEmail(), loginDTO.getSenha())
+                .map(usuario -> ResponseEntity.ok(Map.of("message", "Login bem-sucedido!")))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Email ou senha inválidos.")));
+    }
 
     @GetMapping
     public List<UsuarioDTO> listarUsuarios() {
@@ -58,11 +72,4 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
-        return usuarioService.authenticate(loginDTO.getEmail(), loginDTO.getSenha())
-                .map(usuario -> ResponseEntity.ok(Map.of("message", "Login bem-sucedido!")))
-                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Email ou senha inválidos.")));
-    }
 }
-
